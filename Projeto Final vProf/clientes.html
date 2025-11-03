@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="container">
+    <nav class="row bg-dark p-3">
+        <div class="col text-white">
+            <h5>🚗 Locadora de Veiculos</h5>
+        </div>
+            <div id="pc-menu" class="col text-end">
+            <a href="dashboard.html" class="btn btn-outline-light">Dashboard</a>
+            <a href="veiculos.html" class="btn btn-outline-light">Veiculos</a>
+            <a href="clientes.html" class="btn btn-outline-light">Clientes</a>
+            <a href="vendas.html" class="btn btn-outline-light">Vendas</a>
+            <a href="index.html" class="btn btn-outline-light">Sair</a>
+            </div>
+        
+            <div id="mobile-menu" class= "col text-end">
+            <a href="#hamburger" data-bs-toggle="offcanvas" class="btn btn-outline-light">
+            <img class="icon" src="https://files.catbox.moe/udvxgo.png" width="25" height="30">
+            </a>
+        </div>  
+    </nav>
+
+        <div id="hamburger" class="offcanvas offcanvas-start">
+            <div class="offcanvas-title bg-dark text-white">
+            <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            <h1 class="text-center">Menu</h1>
+            </div>
+            <div class="offcanvas-body bg-dark text-white">
+                <a href="dashboard.html" class="text-start btn btn-dark d-grid"><span class="bi bi-graph-up">   Dashboard</span></a>
+                <br>
+                <a href="veiculos.html" class="text-start btn btn-dark d-grid"><span class="bi bi-car-front">  Veiculos</span></a>
+                <br>
+                <a href="clientes.html" class="text-start btn btn-primary d-grid"><span class="bi bi-person-lines-fill">  Clientes</span></a>
+                <br>
+                <a href="vendas.html" class="text-start btn btn-dark d-grid"><span class="bi bi-cart2">  Vendas</span></a>
+                <br>
+                <a href="index.html" class="text-start btn btn-dark d-grid"><span class="bi bi-chevron-compact-left">  Sair</span></a>    
+            </div>
+        </div>
+        <!--AGORA PREENCHE TODOS OS OUTROS CÓDIGOS COM ISSO E DPS GRAVA O NOVO GIF-->
+        <!--Para o saymon do futuro: Tá feito, mas você pode fazer um drawer com navbar e se aproveitar do ícone toggler existir lá.-->
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="mt-3">Clientes</h2>
+        <div>
+            <a href="#add-cliente" 
+               data-bs-toggle="offcanvas" class="btn btn-dark">Novo Cliente</a>
+        </div>
+    </div>
+
+    <div id="add-cliente" class="offcanvas offcanvas-start">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">
+                Novo Cliente
+            </h5>
+        </div>
+        <div class="offcanvas-body">
+            <form action="">
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" 
+                       placeholder="Digite aqui" 
+                       class="form-control mb-3">
+
+                <label for="cpf">CPF</label>
+                <input type="text" id="cpf" 
+                       placeholder="Digite aqui" 
+                       class="form-control mb-3">
+
+                <label for="endereco">Endereço</label>
+                <input type="text" id="endereco" 
+                       placeholder="Digite aqui" 
+                       class="form-control mb-3">
+
+                <label for="telefone">Telefone</label>
+                <input type="text" id="telefone" 
+                       placeholder="Digite aqui" 
+                       class="form-control mb-3">
+                
+                <label for="foto">Foto</label>
+                <input type="file" id="foto" 
+                       class="form-control mb-3">
+
+                    
+                <button class="btn btn-dark w-100">
+                    PRONTO
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+    <section class="card card-body">
+        
+        <table class="table table-bordered table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#ID</th>
+                    <th>Foto</th>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Telefone</th>
+                    <th>Endereço</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/women/12.jpg"> </td>
+                    <td> Chiquim da Silva </td>
+                    <td> 123.***.***-12 </td>
+                    <td> (85) 9 8675-0101 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/men/13.jpg"> </td>
+                    <td> João Silva </td>
+                    <td> 222.***.***-34 </td>
+                    <td> (85) 9 8765-4321 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/women/22.jpg"> </td>
+                    <td> Maria Oliveira </td>
+                    <td> 987.***.***-56 </td>
+                    <td> (85) 9 9123-4567 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/men/8.jpg"> </td>
+                    <td> Pedro Santos </td>
+                    <td> 333.***.***-78 </td>
+                    <td> (85) 9 9432-5678 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/women/43.jpg"> </td>
+                    <td> Ana Costa </td>
+                    <td> 444.***.***-90 </td>
+                    <td> (85) 9 9543-6789 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/men/24.jpg"> </td>
+                    <td> Carlos Souza </td>
+                    <td> 555.***.***-01 </td>
+                    <td> (85) 9 9654-7890 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/women/53.jpg"> </td>
+                    <td> Juliana Pereira </td>
+                    <td> 666.***.***-23 </td>
+                    <td> (85) 9 9765-8901 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/men/3.jpg"> </td>
+                    <td> Thiago Lima </td>
+                    <td> 777.***.***-34 </td>
+                    <td> (85) 9 9876-9012 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/women/17.jpg"> </td>
+                    <td> Larissa Souza </td>
+                    <td> 888.***.***-45 </td>
+                    <td> (85) 9 9987-0123 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td> <img class="rounded-circle" width="70px" src="https://randomuser.me/api/portraits/men/56.jpg"> </td>
+                    <td> Marcos Silva </td>
+                    <td> 999.***.***-67 </td>
+                    <td> (85) 9 1000-2345 </td>
+                    <td> Fortaleza-CE </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </section>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

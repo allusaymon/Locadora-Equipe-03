@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <link rel="stylesheet" href="css/custom.css">
+</head>
+<body class="container">
+    <nav class="row bg-dark p-3">
+        <div class="col text-white">
+            <h5>🚗 Locadora de Veiculos</h5>
+        </div>
+            <div id="pc-menu" class="col text-end">
+            <a href="dashboard.html" class="btn btn-outline-light">Dashboard</a>
+            <a href="veiculos.html" class="btn btn-outline-light">Veiculos</a>
+            <a href="clientes.html" class="btn btn-outline-light">Clientes</a>
+            <a href="vendas.html" class="btn btn-outline-light">Vendas</a>
+            <a href="index.html" class="btn btn-outline-light">Sair</a>
+            </div>
+
+            <div id="mobile-menu" class= "col text-end">
+            <a href="#hamburger" data-bs-toggle="offcanvas" class="btn btn-outline-light">
+            <img class="icon" src="https://files.catbox.moe/udvxgo.png" width="25" height="30">
+            </a>
+            </div> 
+    </nav>
+
+        <div id="hamburger" class="offcanvas offcanvas-start">
+                <div class="offcanvas-title bg-dark text-white">
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                <h1 class="text-center">Menu</h1>
+                </div>
+                <div class="offcanvas-body bg-dark text-white">
+                    <a href="dashboard.html" class="text-start btn btn-dark d-grid"><span class="bi bi-graph-up">   Dashboard</span></a>
+                    <br>
+                    <a href="veiculos.html" class="text-start btn btn-primary d-grid"><span class="bi bi-car-front">  Veiculos</span></a>
+                    <br>
+                    <a href="clientes.html" class="text-start btn btn-dark d-grid"><span class="bi bi-person-lines-fill">  Clientes</span></a>
+                    <br>
+                    <a href="vendas.html" class="text-start btn btn-dark d-grid"><span class="bi bi-cart2">  Vendas</span></a>
+                    <br>
+                    <a href="index.html" class="text-start btn btn-dark d-grid"><span class="bi bi-chevron-compact-left">  Sair</span></a>    
+                </div>
+            </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <h2 class="mt-3">Veiculos</h2>
+        <div>
+            <a href="#add-veiculo" 
+               data-bs-toggle="offcanvas" class="btn btn-dark">Novo Veiculo</a>
+        </div>
+    </div>
+
+    <div id="add-veiculo" class="offcanvas offcanvas-start">
+        <div class="offcanvas-header">
+            <h5 class="offcanvas-title">
+                Novo Veiculo
+            </h5>
+        </div>
+        <div class="offcanvas-body">
+            <form action="">
+                <label for="placa">Placa</label>
+                <input type="text" id="placa" 
+                       placeholder="Digite aqui" 
+                       class="form-control mb-3">
+
+                <label for="marca">Marca</label>
+                <select name="" id="marca" class="form-select mb-3">
+                    <option selected value=""> -- Selecione -- </option>
+                    <option>Chevrolet</option>
+                    <option>Fiat</option>
+                    <option>Toyota</option>
+                    <option>VolksWagen</option>
+                    <option>Ford</option>
+                </select>
+
+                <label for="modelo">Modelo</label>
+                <select name="" id="modelo" class="form-select mb-3">
+                    <option selected value=""> -- Selecione -- </option>
+                    <option>Celta</option>
+                    <option>Classic</option>
+                    <option>Gol</option>
+                    <option>Fusca</option>
+                    <option>EcoSport</option>
+                </select>
+
+                
+                
+                <label for="ano">Ano</label>
+                <input type="number" id="ano" 
+                       class="form-control mb-3">
+
+                    
+                <button class="btn btn-dark w-100">
+                    PRONTO
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <hr>
+    <section class="card card-body">
+        
+        <table class="table table-hover table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>#ID</th>
+                    <th>Placa</th>
+                    <th>Marca</th>
+                    <th>Modelo</th>
+                    <th>Ano</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td> PNO-8745 </td>
+                    <td> Chevrolet </td>
+                    <td> Celta </td>
+                    <td> 2010 </td>
+                    <td>
+                        <button class="btn btn-sm btn-warning">Editar</button>
+                        <button class="btn btn-sm btn-danger">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>
