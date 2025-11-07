@@ -29,6 +29,11 @@ html, body {
     box-sizing:border-box;
     position:relative
 }
+.welcome {
+    position:relative;
+    top: -50px;
+    left: 150px;
+}
 
 @media screen and (max-width: 780px) {
     #pc-menu {
