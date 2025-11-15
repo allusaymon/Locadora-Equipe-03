@@ -11,7 +11,6 @@
     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body class="container-fluid">
-    
     <nav class="row bg-dark p-3">
         <div class="col text-white">
             <h5>🚗 Locadora de Veiculos</h5>
@@ -48,21 +47,40 @@
                 </div>
             </div>
 
-
-    <h2 class="mt-3">Dashboard</h2>
-    <hr>
-    <div class="overlay" id="o">
-        <div class="modal-content">
-        <div class="text-end"><button class="btn-close text end" id="x"></button></div>
-            <div id="gif-modal" style="position:relative; top: 50px; left: 10px;"><img src="https://files.catbox.moe/4clq74.gif" alt="Descrição do GIF" class="img-fluid" width="130" height="200"></div>
-            <div class="welcome"><h2>Bem-vindo(a)!</h2>
-            <p>Que bom que você está aqui.</p></div>
-            <div class="modal-footer">
-            <button type="button" id="ok" class="btn btn-primary" data-bs-dismiss="modal">Fechar</button>
+    <div id="welcome" class="modal fade">
+    <!--Colocamos o nome da div que cobre o modal inteiro de "welcome", pra referenciar ela mais tarde no javascript.-->
+    <!--A Classe "modal-fade" é uma do Bootstrap que faz o modal surgir e fechar com um efeito animado de perder transparëncia-->
+        <div class="modal-dialog mod-welcome modal-dialog-centered">
+    <!--O Dialog é o pai das classes "modal-content, modal-body", que compõe a estrutura do modal no Boostrap.-->
+    <!--O "mod-welcome" é o nome adicional que dei pra referenciar no CSS a customização dessa estrutura-->
+    <!--Claro, o dialog-centered é um seletor da class dialog que faz o modal ficar no meio do site.-->
+            <div class="modal-content mod-welcome">
+    <!--O Dialog concedeu o uso do content pra demarcar o conteúdo principal do modal, e botei o mod-welcome pra customizar no CSS dps.-->          
+                <div class="modal-body m-left">
+    <!--O CSS do dialog dividiu o modal ao meio, então o modal-body pega só a parte da esquerda do modal. Botei m-left pra customizar no CSS dps tb-->
+                        <h1>Seja bem-vindo (a)!</h1>
+                         <p>
+                            Na nossa locadora você encontra os melhores carros disponíveis para aluguel, 
+                            com grande flexibilidade e sem burocracia!
+                            <br><br>
+                            Para navegar pelo site, acesse nossos botões na barra superior!
+                         </p>
+                    <div class="text-center"> <!--Classe de centralizar o botão de fechar no meio do modal-->
+                        <button class="btn btn-outline-light fw-semibold text-uppercase px-4 py-2" type="button" 
+                        data-bs-dismiss="modal">Fechar</button>
+                        <!--Data-bs-dismiss="modal" é o que faz o modal fechar.-->
+                        <!--Todas essas classes no botão são pra customizar ele. Achei melhor customizar só ele aqui do que no CSS-->
+                    </div>
+                </div> <!--Terminamos de inserir oq queremos que fique na esquerda, então fechamos a div do modal-body m-left-->
+                <div class="m-right-col"> <!--Criei a div para as coisas da direita (imagem) e fechei-->
+                    <img src="https://files.catbox.moe/1kzoq4.png">
+                </div>
             </div>
         </div>
     </div>
 
+    <h2 class="mt-3">Dashboard</h2>
+    <hr>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
     <script src="js/app.js"></script>
 
