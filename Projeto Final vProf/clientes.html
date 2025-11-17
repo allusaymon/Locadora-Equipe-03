@@ -115,8 +115,43 @@
 
     <hr>
     <section class="card card-body">
-        
-        <table class="table table-bordered table-hover table-striped">
+    <div class="container">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <input id="searchInput" type="search" class="form-control" placeholder="Filtrar por nome, email ou cidade...">
+                </div>
+        <div class="col-md-3">
+            <select id="statusFilter" class="form-select">
+            <option value="all">Todos</option>
+            <option value="true">Ativos</option>
+            <option value="false">Inativos</option>
+            </select>
+        </div>
+        <div class="col-md-3 text-end">
+            <button id="refreshBtn" class="btn btn-secondary">Recarregar</button>
+        </div>
+        </div>
+        <div class="table-responsive">
+        <table id="clientsTable" class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th class="sortable" data-key="id">ID</th>
+                <th class="sortable" data-key="nome">Nome</th>
+                <th class="sortable" data-key="email">Email</th>
+                <th class="sortable" data-key="telefone">Telefone</th>
+                <th class="sortable" data-key="cidade">Cidade</th>
+                <th class="sortable" data-key="dataCadastro">Data cadastro</th>
+                <th class="sortable" data-key="ativo">Ativo</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Linhas serão inseridas dinamicamente -->
+            </tbody>
+        </table>
+        </div>
+        <div id="statusMessage" class="mt-2 text-muted"></div>
+    </div>
+        <!--<table class="table table-bordered table-hover table-striped">
             <thead class="table-dark">
                 <tr>
                     <th>#ID</th>
@@ -251,10 +286,10 @@
                 </tr>
 
             </tbody>
-        </table>
+        </table>-->
     </section>
-
-    
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    <script src="js/app.js"></script>  
+
 </body>
 </html>
