@@ -70,6 +70,24 @@ html, body {
     }
 }
 
+    th.sortable {
+      cursor: pointer;
+    }
+
+    th.sortable:after {
+      content: '\25B2\25BC';
+      font-size: 0.6em;
+      margin-left: 6px;
+      opacity: 0.4;
+    }
+
+    th.sorted-asc:after {
+      content: '\25B2';
+    }
+
+    th.sorted-desc:after {
+      content: '\25BC';
+    }
 /*.col-12.botao {
     display: inline-flex;
     align-items: center;
