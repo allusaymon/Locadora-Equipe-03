@@ -78,7 +78,6 @@ function processarErenderizar() {
         if (valA > valB) { comparison = 1; } 
         else if (valA < valB) { comparison = -1; }
 
-        // Aplica a direção: 'asc' usa 1, 'desc' usa -1
         return sortDirection === 'asc' ? comparison : comparison * -1;
     });
 //Estabelece uma lógica de comparação por valores numéricos. Se a variável comparacao for 0, quer dizer que Cliente A e B são iguais (mesmo nome, cidade, etc).
@@ -86,67 +85,65 @@ function processarErenderizar() {
 //Se valA for menor que valB (caso a letra B de Bruno vier antes que A de Ana, tá detrás pra frente, então...), a variavel comparacao será -1 (é a ordem descendente, mas o programa n sabe ainda)
 //O último return é complicado. Nele, explicamos que Ascendente usa 1 e Descedente usa -1, na lógica que criamos. Para ser "asc", a variavel comparacao tem q ser positiva... Mas pra ser qualquer outra coisa, a variavel tem q ser negativa (por isso multiplica por -1, qualquer numero vira negativo assim)
 
-    // 3. RENDERIZAR
+//Por fim, no fim de toda filtragem ou ordenação, devemos carregar o json de novo: Por isso o chamado da função de renderizar.
     renderizarDados(copiaGlobal);
 }
 
-/**
- * Manipula o clique em um cabeçalho de coluna para alternar a ordenação.
- */
-function handleSortClick(event) {
-    const newSortKey = event.currentTarget.getAttribute('data-key');
-    
-    // Remove classes de ordenação de todos os cabeçalhos
-    colunasOrdenaveis.forEach(th => th.classList.remove('sorted-asc', 'sorted-desc'));
 
-    if (newSortKey === sortKey) {
-        // Inverte a direção
+//Pode não lembrar, mas essa função se chama assim por convenção ok
+function handleSortClick(event) {
+    const novaSortKey = event.currentTarget.getAttribute('data-key');
+//Expliquei que a sortkey seleciona a coluna, né? Mas pra ela conseguir, temos que explicar que é através do click que ela seleciona.
+//A novaSortkey faz o mesmo que a anterior, só que de forma mais específica: Armazena na chave o valor da coluna, identificando ela (um valor data-key, pode ser a ID, Nome, cidade...)
+
+    if (novaSortKey === sortKey) {
         sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
-        // Define nova chave e direção padrão
-        sortKey = newSortKey;
+        sortKey = novaSortKey;
         sortDirection = 'asc';
     }
+//Estabelece a lógica de cliques: Se a mesma coluna for clicada duas vezes (novasortkey = antiga), o código vai inverter a ordem entre ascendente e a recém-definida descendente.
+//Mas se já tiver clicado em uma coluna, e a próxima ciclada for outra: Muda a coluna anteriormente clicada pra ordem ascendente e foca na outra.
     
-    // Adiciona a classe visual ao cabeçalho clicado
     event.currentTarget.classList.add(`sorted-${sortDirection}`);
-    
-    // Processa os dados com a nova ordenação
     processarErenderizar();
 }
+// Adiciona a classe "sorted", que usamos no CSS pra fazer as setinhas mudando assim que a coluna é clicada!
+//Chama a função de ordenação e filtro pra confirmar tudo.
 
-// ----------------------------------------------------
-// FUNÇÕES DE UTILIDADE (Carregar e Renderizar)
-// ----------------------------------------------------
 
+//A função mais chata, mas também uma das mais importantes: Tratamento de Erros.
 function renderizarDados(clientes) {
     if (!bodydatabela) {
         statusdosdados.textContent = "ERRO: TABELA NÃO ENCONTRADA.";
         return;
-    }
-
-    bodydatabela.innerHTML = ''; 
-
+    } 
+//Se o Body da tabela não existir, imprime o status dos dados de que não foi encontrada.
+    
+bodydatabela.innerHTML = ''; 
     if (clientes.length === 0) {
         const semLinha = `<tr><td colspan="8" class="text-center py-4 text-gray-500">Nenhum cliente encontrado.</td></tr>`;
         bodydatabela.innerHTML = semLinha;
         
-        const totalClientes = clienteDadosGlobais.length;
+        const totalClientes = dadosGlobais.length;
         const statusMsg = filtropesquisa.value.trim() !== '' ? 
                           `0 clientes encontrados (Filtro ativo).` : 
                           `${totalClientes} clientes carregados.`;
         statusdosdados.textContent = statusMsg;
         return;
     }
-
+//Se o body existir, mas estiver sem nenhum dado do cliente: Imprime o que tá armazenado na constante sem linha, de que nenhum cliente foi encontrado.
+//Agora para o filtro que criei, quando mesmo ativado, ele encontrar nada... É bom que apareça embaixo da exibição do JSON quantos clientes foram encontrados de acordo com o filtro.
+    
     clientes.forEach(cliente => {
         let dataFormatada = 'Data Inválida';
         try {
             const dataObj = new Date(cliente.dataCadastro);
             if (!isNaN(dataObj)) dataFormatada = dataObj.toLocaleDateString('pt-BR');
         } catch (e) {}
-
-        const linhas = document.createElement('tr');
+//Esse Try existe basicamente pra converter a coluna de data, que anteriormente defini seu tipo para DATE, para ficar no formato brasileiro de dd/mes/ano 
+        
+    const linhas = document.createElement('tr');
         linhas.innerHTML = `
             <td>${cliente.id}</td>
             <td>
@@ -170,20 +167,26 @@ function renderizarDados(clientes) {
         `;
         bodydatabela.appendChild(linhas);
     });
+//Para as linhas que serão criadas quando puxarmos o JSON no meu tbody, referenciei as colunas que cada linha precisarão estar...
+//E customizei algumas. Tipo defini o tamanho da foto, que ela vai ser oval, e criei novos botões de editar e excluir com icons do boostraps.
 
     const statusMsg = filtropesquisa.value.trim() !== '' ? 
                       `${clientes.length} clientes encontrados (Filtro ativo).` : 
                       `${clientes.length} clientes carregados com sucesso.`;
     statusdosdados.textContent = statusMsg;
 }
+//Por fim, pra caso o filtro ativado funcione... Que apareça abaixo do meu tbody o resultado de quantos foram encontrados.
 
+
+//A função principal da Task: Use o Fetch pra puxar o JSON pro HTML.
 async function carregarDados() {
     statusdosdados.textContent = "Carregando dados...";
     filtropesquisa.value = ''; // Limpa a pesquisa
     sortKey = 'id'; // Reseta a ordenação
     sortDirection = 'asc';
     colunasOrdenaveis.forEach(th => th.classList.remove('sorted-asc', 'sorted-desc'));
-
+//Toda vez que os dados forem carregados (É comum serem devido ao botão Recarregar existir):
+//Caso demore, exibe o Carregando. Quando carrega, deixa limpo a barra de filtro. Reseta a ordenação, modificando também o CSS de setas.
     try {
         const response = await fetch('clientes.json');
         if (!response.ok) {
@@ -202,6 +205,10 @@ async function carregarDados() {
         if (bodydatabela) bodydatabela.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">Não foi possível carregar os dados.</td></tr>`;
     }
 }
+//O Try: Ele cria uma constante pra puxar o JSON através do fetch, e se caso der errado especificamente DEPOIS de puxar, exibe erro.
+//Ele também converte o JSON, que vem como string por padrão, pra .json e chama a função de processar tudo isso.
+//O Catch: Exibe erro se SEQUER deu pra puxar os JSON.
+
 
 // Inicialização e Event Listeners
 document.addEventListener('DOMContentLoaded', () => {
