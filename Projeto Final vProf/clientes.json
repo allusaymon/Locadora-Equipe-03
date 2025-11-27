@@ -1,23 +1,23 @@
 [
   
-  {"id": 1, "nome":"Ana Silva", "email":"ana.silva@example.com", "telefone":"(11) 99999-0001", "cidade":"São Paulo", "dataCadastro":"2024-03-12", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/women/12.jpg"},
+  {"id": 1, "nome":"Ana Silva", "email":"ana.silva@example.com", "telefone":"(11) 99999-0001", "cidade":"São Paulo", "dataCadastro":"2024-03-12", "fotoUrl": "https://randomuser.me/api/portraits/women/12.jpg"},
   
-  {"id": 2, "nome":"Bruno Costa", "email":"bruno.costa@example.com", "telefone":"(21) 98888-0002", "cidade":"Rio de Janeiro", "dataCadastro":"2023-11-20", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/men/13.jpg"},
+  {"id": 2, "nome":"Bruno Costa", "email":"bruno.costa@example.com", "telefone":"(21) 98888-0002", "cidade":"Rio de Janeiro", "dataCadastro":"2023-11-20", "fotoUrl": "https://randomuser.me/api/portraits/men/13.jpg"},
   
-  {"id": 3, "nome":"Carla Pereira", "email":"carla.pereira@example.com", "telefone":"(31) 97777-0003", "cidade":"Belo Horizonte", "dataCadastro":"2022-06-05", "ativo": false, "fotoUrl": "https://randomuser.me/api/portraits/women/22.jpg"},
+  {"id": 3, "nome":"Carla Pereira", "email":"carla.pereira@example.com", "telefone":"(31) 97777-0003", "cidade":"Belo Horizonte", "dataCadastro":"2022-06-05", "fotoUrl": "https://randomuser.me/api/portraits/women/22.jpg"},
   
-  {"id": 4, "nome":"Diego Ramos", "email":"diego.ramos@example.com", "telefone":"(41) 96666-0004", "cidade":"Curitiba", "dataCadastro":"2021-12-01", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/men/8.jpg"},
+  {"id": 4, "nome":"Diego Ramos", "email":"diego.ramos@example.com", "telefone":"(41) 96666-0004", "cidade":"Curitiba", "dataCadastro":"2021-12-01", "fotoUrl": "https://randomuser.me/api/portraits/men/8.jpg"},
   
-  {"id": 5, "nome":"Eduarda Mendes", "email":"eduarda.mendes@example.com", "telefone":"(51) 95555-0005", "cidade":"Porto Alegre", "dataCadastro":"2025-01-07", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/women/43.jpg"},
+  {"id": 5, "nome":"Eduarda Mendes", "email":"eduarda.mendes@example.com", "telefone":"(51) 95555-0005", "cidade":"Porto Alegre", "dataCadastro":"2025-01-07", "fotoUrl": "https://randomuser.me/api/portraits/women/43.jpg"},
   
-  {"id": 6, "nome":"Fábio Nunes", "email":"fabio.nunes@example.com", "telefone":"(61) 94444-0006", "cidade":"Brasília", "dataCadastro":"2020-09-15", "ativo": false, "fotoUrl": "https://randomuser.me/api/portraits/men/12.jpg"},
+  {"id": 6, "nome":"Fábio Nunes", "email":"fabio.nunes@example.com", "telefone":"(61) 94444-0006", "cidade":"Brasília", "dataCadastro":"2020-09-15", "fotoUrl": "https://randomuser.me/api/portraits/men/12.jpg"},
   
-  {"id": 7, "nome":"Gabriela Lima", "email":"gabriela.lima@example.com", "telefone":"(71) 93333-0007", "cidade":"Salvador", "dataCadastro":"2024-07-22", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/women/31.jpg"},
+  {"id": 7, "nome":"Gabriela Lima", "email":"gabriela.lima@example.com", "telefone":"(71) 93333-0007", "cidade":"Salvador", "dataCadastro":"2024-07-22", "fotoUrl": "https://randomuser.me/api/portraits/women/31.jpg"},
   
-  {"id": 8, "nome":"Henrique Alves", "email":"henrique.alves@example.com", "telefone":"(81) 92222-0008", "cidade":"Recife", "dataCadastro":"2019-04-30", "ativo": false, "fotoUrl": "https://randomuser.me/api/portraits/men/7.jpg"},
+  {"id": 8, "nome":"Henrique Alves", "email":"henrique.alves@example.com", "telefone":"(81) 92222-0008", "cidade":"Recife", "dataCadastro":"2019-04-30", "fotoUrl": "https://randomuser.me/api/portraits/men/7.jpg"},
   
-  {"id": 9, "nome":"Isabela Rocha", "email":"isabela.rocha@example.com", "telefone":"(91) 91111-0009", "cidade":"Belém", "dataCadastro":"2023-02-18", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/women/25.jpg"},
+  {"id": 9, "nome":"Isabela Rocha", "email":"isabela.rocha@example.com", "telefone":"(91) 91111-0009", "cidade":"Belém", "dataCadastro":"2023-02-18", "fotoUrl": "https://randomuser.me/api/portraits/women/25.jpg"},
   
-  {"id": 10, "nome":"João Fernandes", "email":"joao.fernandes@example.com", "telefone":"(95) 90000-0010", "cidade":"Manaus", "dataCadastro":"2022-10-10", "ativo": true, "fotoUrl": "https://randomuser.me/api/portraits/men/5.jpg"}
+  {"id": 10, "nome":"João Fernandes", "email":"joao.fernandes@example.com", "telefone":"(95) 90000-0010", "cidade":"Manaus", "dataCadastro":"2022-10-10", "fotoUrl": "https://randomuser.me/api/portraits/men/5.jpg"}
   
 ]
