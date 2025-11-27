@@ -1,3 +1,5 @@
+//PARTE DO MATHEUS:
+
 //Adicionei um método de evento que percebe quando a página é totalmente carregada, pra aí exibir a função que descreverei dps
 document.addEventListener('DOMContentLoaded', function () {
 
@@ -17,196 +19,206 @@ document.addEventListener('DOMContentLoaded', function () {
 
 });
 
-      let clients = []; // array carregado do JSON
-      let filtered = []; // array filtrado/ordenado que é renderizado
-      let sortState = {
-          key: 'id',
-          dir: 'asc'
-      }; // ordenação atual
+//PARTE DO GUILHERME: 
+//Criação de Constantes para referenciar elementos do HTML
+const bodydatabela = document.querySelector('#tabelalocatarios tbody');
+const statusdosdados = document.getElementById('status');
+const recarregar = document.getElementById('btnrecarregar');
+const filtropesquisa = document.getElementById('searchInput');
+const colunasOrdenaveis = document.querySelectorAll('.sortable');
 
-      // Referências DOM
-      const tableBody = document.querySelector('#clientsTable tbody');
-      const searchInput = document.getElementById('searchInput');
-      const statusFilter = document.getElementById('statusFilter');
-      const refreshBtn = document.getElementById('refreshBtn');
-      const statusMessage = document.getElementById('statusMessage');
-      // Seleciona apenas as colunas que possuem a classe 'sortable'
-      const headerCells = document.querySelectorAll('#clientsTable thead th.sortable'); 
+let dadosGlobais = []; 
+//Após carregar o json uma vez, deve-se armazenar em uma varíavel todos os 10 clientes: Só assim vai dar pra organizar eles por filtros e ordenação
+let sortKey = 'id';
+// Chave contendo o valor da coluna ID (padrão quando se carrega a página). Quando se clica em outra coluna, é pra esse valor sair de ID e ir pra coluna clicada...
+let sortDirection = 'asc';
+//Chave contendo a direção da ordem que a coluna selecionada estará. "Ascendente" (menor pro maior) é o valor padrão, mas tbm tem o ˜Descendente˜ (maior pro menor).
 
-      // Função principal de carregamento usando fetch para buscar o JSON local
-      async function loadClients() {
-          setStatus('Carregando clientes...');
-          try {
-              // Configurado para buscar 'clientes.json' na mesma pasta
-              const res = await fetch('clientes.json', {
-                  cache: 'no-store'
-              });
-              if (!res.ok) throw new Error(`HTTP ${res.status}`);
-              clients = await res.json();
-              
-              // Normaliza e valida os tipos de dados
-              clients = clients.map(normalizeClient);
-              
-              // Aplica filtros e ordenação e renderiza
-              applyFiltersAndSort();
-              
-              setStatus(`Carregados ${clients.length} clientes. Pronto para uso.`);
-          } catch (err) {
-              setStatus('Erro ao carregar clientes: ' + err.message);
-              tableBody.innerHTML = '';
-          }
-      }
 
-      // Normaliza campos (garante tipos consistentes e adiciona fotoUrl)
-      function normalizeClient(c) {
-          return {
-              id: Number(c.id),
-              nome: String(c.nome),
-              email: String(c.email),
-              telefone: String(c.telefone || 'N/A'),
-              cidade: String(c.cidade || 'N/A'),
-              dataCadastro: c.dataCadastro ? new Date(c.dataCadastro).toISOString() : null,
-              ativo: Boolean(c.ativo),
-              fotoUrl: String(c.fotoUrl || 'https://placehold.co/70x70/CCCCCC/000000?text=Foto') // Adiciona fallback para foto
-          };
-      }
 
-      // Renderiza a tabela com o array filtrado, usando o novo layout
-      function renderTable(arr) {
-          tableBody.innerHTML = '';
-          if (!arr.length) {
-              tableBody.innerHTML = `<tr><td colspan="9" class="text-center">Nenhum cliente encontrado. Ajuste os filtros ou a pesquisa.</td></tr>`;
-              return;
-          }
-          const frag = document.createDocumentFragment();
-          arr.forEach(c => {
-              const statusBadge = c.ativo 
-                  ? '<span class="badge bg-success">Ativo</span>' 
-                  : '<span class="badge bg-danger">Inativo</span>';
+//FUNÇÃO DE FILTRO E ORDENAÇÃO:
+function processarErenderizar() {
+    let copiaGlobal = [...dadosGlobais];
+// Cria uma cópia da variável global, que tem os 10 clientes inseridos.
+    
+    // 1. PARTE DO FILTRO:
+    const texto = filtropesquisa.value.toLowerCase().trim();
+//Uma constante que armazenará os valores dentro da barra de pesquisa e fará com que ele não seja case sensitive e que os espaços brancos não influenciem no filtro que virá depois.
+    if (texto) {
+        copiaGlobal = copiaGlobal.filter(cliente => {
+            return (
+                cliente.nome.toLowerCase().includes(texto) ||
+                cliente.email.toLowerCase().includes(texto) ||
+                cliente.cidade.toLowerCase().includes(texto)
+            );
+        });
+    }
+//Se tiver algum texto na barra, os 10 clientes serão filtrados, procurando as letras do texto nas colunas nome, se não tiver, na email, e se não tiver, na cidade. Se não tiver texto, esse if é ignorado, já que o return só é ativado se o if tiver algo.
+    
+    // 2. PARTE DA ORDENAÇÃO:
+    copiaGlobal.sort((a, b) => {
+        let valA = a[sortKey];
+        let valB = b[sortKey];
+//Sort é uma função do javascript que compara dois valores... Nesse caso, cliente A e cliente B dentro da lista.
+//Para o cliente A, quero saber qual coluna foi clicada para atribuir a ordenação e armazenar esse valor nessa nova varíavel valA.
+//Para o cliente B, quero saber qual coluna foi clicada para atribuir a ordenação e armazenar esse valor nessa nova varíavel valB.
+    
+        if (sortKey === 'dataCadastro') {
+            valA = new Date(valA);
+            valB = new Date(valB);
+        } else if (typeof valA === 'string' && typeof valB === 'string') {
+            valA = valA.toLowerCase();
+            valB = valB.toLowerCase();
+        }
+//Se a coluna clicada foi a de data, quero transformar o valor de string dela pra DATE. 
+//Se eu usasse o sort (val A e valB agr) pra comparar o dado string com string, iria ser uma comparação de caracteres... E não de data.
 
-              const tr = document.createElement('tr');
-              
-              // Estrutura de linha adaptada ao layout POOH e campos do JASON
-              tr.innerHTML = `
-                  <td>${c.id}</td>
-                  <td>
-                      <img class="rounded-circle" width="70px" height="70px" src="${escapeHtml(c.fotoUrl)}" alt="Foto de ${escapeHtml(c.nome)}">
-                  </td>
-                  <td>${escapeHtml(c.nome)}</td>
-                  <td>${escapeHtml(c.email)}</td>
-                  <td>${escapeHtml(c.telefone)}</td>
-                  <td>${escapeHtml(c.cidade)}</td>
-                  <td>${c.dataCadastro ? (new Date(c.dataCadastro)).toLocaleDateString('pt-BR') : '-'}</td>
-                  <td>${statusBadge}</td>
-                  <td>
-                      <button class="btn btn-sm btn-warning me-1" title="Editar ${escapeHtml(c.nome)}">
-                          <i class="bi bi-pencil"></i>
-                      </button>
-                      <button class="btn btn-sm btn-danger" title="Excluir ${escapeHtml(c.nome)}">
-                          <i class="bi bi-trash"></i>
-                      </button>
-                  </td>
-              `;
-              frag.appendChild(tr);
-          });
-          tableBody.appendChild(frag);
-      }
 
-      // --- Lógica de Filtro e Ordenação (Mantida do Cliente Jason) ---
-      
-      function applyFiltersAndSort() {
-          const term = searchInput.value.trim().toLowerCase();
-          const status = statusFilter.value;
-          filtered = clients.filter(c => {
-              // Filtragem por status (all, true, false)
-              const matchesStatus = status === 'all' ? true : String(c.ativo) === status;
-              
-              // Filtragem por termo de pesquisa (nome, email, cidade)
-              const matchesTerm = !term || [c.nome, c.email, c.cidade].some(v => String(v).toLowerCase().includes(term));
-              
-              return matchesStatus && matchesTerm;
-          });
-          
-          sortArray(filtered, sortState.key, sortState.dir);
-          updateHeaderSortIndicators();
-          renderTable(filtered);
-      }
+        let comparison = 0;
+        if (valA > valB) { comparison = 1; } 
+        else if (valA < valB) { comparison = -1; }
 
-      function sortArray(arr, key, dir) {
-          arr.sort((a, b) => {
-              const A = a[key];
-              const B = b[key];
-              
-              if (key === 'id') return (A - B) * (dir === 'asc' ? 1 : -1);
-              
-              if (key === 'dataCadastro') {
-                  const diff = (new Date(A || 0)) - (new Date(B || 0));
-                  return diff * (dir === 'asc' ? 1 : -1);
-              }
-              
-              // Comparação de strings com suporte a acentuação (pt-BR)
-              return String(A).localeCompare(String(B), 'pt-BR', {
-                  numeric: true
-              }) * (dir === 'asc' ? 1 : -1);
-          });
-      }
+        // Aplica a direção: 'asc' usa 1, 'desc' usa -1
+        return sortDirection === 'asc' ? comparison : comparison * -1;
+    });
+//Estabelece uma lógica de comparação por valores numéricos. Se a variável comparacao for 0, quer dizer que Cliente A e B são iguais (mesmo nome, cidade, etc).
+//Se valA for maior que valB (caso a letra B de Bruno vier depois que a letra A de Ana, tá igual o alfabeto, então...), a variavel comparacao será 1 (é a ordem ascendente, mas o programa n sabe ainda)
+//Se valA for menor que valB (caso a letra B de Bruno vier antes que A de Ana, tá detrás pra frente, então...), a variavel comparacao será -1 (é a ordem descendente, mas o programa n sabe ainda)
+//O último return é complicado. Nele, explicamos que Ascendente usa 1 e Descedente usa -1, na lógica que criamos. Para ser "asc", a variavel comparacao tem q ser positiva... Mas pra ser qualquer outra coisa, a variavel tem q ser negativa (por isso multiplica por -1, qualquer numero vira negativo assim)
 
-      function updateHeaderSortIndicators() {
-          headerCells.forEach(th => {
-              th.classList.remove('sorted-asc', 'sorted-desc');
-              if (th.dataset.key === sortState.key) th.classList.add(sortState.dir === 'asc' ? 'sorted-asc' : 'sorted-desc');
-          });
-      }
+    // 3. RENDERIZAR
+    renderizarDados(copiaGlobal);
+}
 
-      function escapeHtml(text) {
-          return String(text)
-              .replace(/&/g, '&amp;')
-              .replace(/</g, '&lt;')
-              .replace(/>/g, '&gt;')
-              .replace(/"/g, '&quot;')
-              .replace(/'/g, '&#039;');
-      }
+/**
+ * Manipula o clique em um cabeçalho de coluna para alternar a ordenação.
+ */
+function handleSortClick(event) {
+    const newSortKey = event.currentTarget.getAttribute('data-key');
+    
+    // Remove classes de ordenação de todos os cabeçalhos
+    colunasOrdenaveis.forEach(th => th.classList.remove('sorted-asc', 'sorted-desc'));
 
-      function setStatus(msg) {
-          statusMessage.innerHTML = msg;
-      }
-      
-      // Pequena função debounce para reduzir chamadas durante digitação
-      function debounce(fn, ms = 220) {
-          let t;
-          return (...args) => {
-              clearTimeout(t);
-              t = setTimeout(() => fn(...args), ms);
-          };
-      }
+    if (newSortKey === sortKey) {
+        // Inverte a direção
+        sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+        // Define nova chave e direção padrão
+        sortKey = newSortKey;
+        sortDirection = 'asc';
+    }
+    
+    // Adiciona a classe visual ao cabeçalho clicado
+    event.currentTarget.classList.add(`sorted-${sortDirection}`);
+    
+    // Processa os dados com a nova ordenação
+    processarErenderizar();
+}
 
-      // --- Event Listeners e Inicialização ---
+// ----------------------------------------------------
+// FUNÇÕES DE UTILIDADE (Carregar e Renderizar)
+// ----------------------------------------------------
 
-      searchInput.addEventListener('input', debounce(applyFiltersAndSort, 220));
-      statusFilter.addEventListener('change', applyFiltersAndSort);
-      refreshBtn.addEventListener('click', loadClients);
-      
-      headerCells.forEach(th => {
-          th.addEventListener('click', () => {
-              const key = th.dataset.key;
-              if (sortState.key === key) sortState.dir = sortState.dir === 'asc' ? 'desc' : 'asc';
-              else {
-                  sortState.key = key;
-                  sortState.dir = 'asc';
-              }
-              applyFiltersAndSort();
-          });
-      });
+function renderizarDados(clientes) {
+    if (!bodydatabela) {
+        statusdosdados.textContent = "ERRO: TABELA NÃO ENCONTRADA.";
+        return;
+    }
 
-      // Inicialização: carregar clientes ao abrir a página
-      document.addEventListener('DOMContentLoaded', loadClients);
+    bodydatabela.innerHTML = ''; 
 
-      // Ação de Novo Cliente (exemplo de como manipular o form)
-      document.getElementById('newClientForm').addEventListener('submit', function(event) {
-          event.preventDefault();
-          // Aqui você capturaria os dados do formulário e enviaria para uma API (POST)
-          setStatus("Funcionalidade 'Novo Cliente' simulada. Dados não salvos.");
-          document.querySelector('#add-cliente').classList.remove('show'); // Fecha o offcanvas
-          // Para fechar o offcanvas programaticamente, é necessário o objeto Bootstrap, mas o JS simples aqui simula o fechamento.
-      });
+    if (clientes.length === 0) {
+        const semLinha = `<tr><td colspan="8" class="text-center py-4 text-gray-500">Nenhum cliente encontrado.</td></tr>`;
+        bodydatabela.innerHTML = semLinha;
+        
+        const totalClientes = clienteDadosGlobais.length;
+        const statusMsg = filtropesquisa.value.trim() !== '' ? 
+                          `0 clientes encontrados (Filtro ativo).` : 
+                          `${totalClientes} clientes carregados.`;
+        statusdosdados.textContent = statusMsg;
+        return;
+    }
 
+    clientes.forEach(cliente => {
+        let dataFormatada = 'Data Inválida';
+        try {
+            const dataObj = new Date(cliente.dataCadastro);
+            if (!isNaN(dataObj)) dataFormatada = dataObj.toLocaleDateString('pt-BR');
+        } catch (e) {}
+
+        const linhas = document.createElement('tr');
+        linhas.innerHTML = `
+            <td>${cliente.id}</td>
+            <td>
+                <img src="${cliente.fotoUrl}"  
+                        class="cliente-foto"
+                        style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover;"
+            </td>
+            <td class="font-medium">${cliente.nome}</td>
+            <td>${cliente.email}</td>
+            <td>${cliente.telefone}</td>
+            <td>${cliente.cidade}</td>
+            <td>${dataFormatada}</td>
+            <td>
+                <button class="btn btn-sm btn-info text-white me-2 shadow-sm" title="Editar">
+                    <i class="bi bi-pencil-square"></i>
+                </button>
+                <button class="btn btn-sm btn-danger shadow-sm" title="Excluir">
+                    <i class="bi bi-trash"></i>
+                </button>
+            </td>
+        `;
+        bodydatabela.appendChild(linhas);
+    });
+
+    const statusMsg = filtropesquisa.value.trim() !== '' ? 
+                      `${clientes.length} clientes encontrados (Filtro ativo).` : 
+                      `${clientes.length} clientes carregados com sucesso.`;
+    statusdosdados.textContent = statusMsg;
+}
+
+async function carregarDados() {
+    statusdosdados.textContent = "Carregando dados...";
+    filtropesquisa.value = ''; // Limpa a pesquisa
+    sortKey = 'id'; // Reseta a ordenação
+    sortDirection = 'asc';
+    colunasOrdenaveis.forEach(th => th.classList.remove('sorted-asc', 'sorted-desc'));
+
+    try {
+        const response = await fetch('clientes.json');
+        if (!response.ok) {
+            throw new Error(`Erro: ${response.status} ${response.statusText}`);
+        }
+
+        dadosGlobais = await response.json();
+        
+        // Processa e renderiza a lista inicial (ordenada por ID)
+        processarErenderizar(); 
+
+    } catch (error) {
+        console.error("Falha ao carregar dados.", error);
+        statusdosdados.textContent = `Erro: Falha ao carregar dados. ${error.message}`;
+        dadosGlobais = []; 
+        if (bodydatabela) bodydatabela.innerHTML = `<tr><td colspan="8" class="text-center py-4 text-danger">Não foi possível carregar os dados.</td></tr>`;
+    }
+}
+
+// Inicialização e Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    carregarDados();
+    
+    if (recarregar) {
+        recarregar.addEventListener('click', carregarDados);
+    }
+    
+    // 1. Listener para o FILTRO: Chama a função principal de processamento
+    if (filtropesquisa) {
+        filtropesquisa.addEventListener('input', processarErenderizar);
+    }
+
+    // 2. Listeners para a ORDENAÇÃO
+    colunasOrdenaveis.forEach(th => {
+        th.style.cursor = 'pointer';
+        th.addEventListener('click', handleSortClick);
+    });
+});
